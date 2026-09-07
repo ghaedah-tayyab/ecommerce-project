@@ -80,7 +80,10 @@ const totalPrice = cartItems.reduce((total, item) => {
         <p>Add some products to your cart to see them here.</p>
       </div>
     ) : (
-      <div className="total-price">{card} <p>Total Price: ${totalPrice}</p> </div>
+      <div className="total-price">
+        {card} 
+        <p>Total Price: ${totalPrice}</p> 
+       </div>
     )}
 
   </div>
