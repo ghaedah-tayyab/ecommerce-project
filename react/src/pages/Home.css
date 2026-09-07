@@ -1,0 +1,57 @@
+.home {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px 80px;
+    background-color: #f5f7fa;
+  }
+  
+  .home-content {
+    max-width: 550px;
+  }
+  
+  .welcome {
+    color: #ff6b35;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .home h1 {
+    font-size: 48px;
+    margin: 15px 0;
+    line-height: 1.2;
+  }
+  
+  .description {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  .shop-btn {
+    padding: 13px 28px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff6b35;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .shop-btn:hover {
+    background-color: #e85b2a;
+  }
+  
+  .home-image {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }

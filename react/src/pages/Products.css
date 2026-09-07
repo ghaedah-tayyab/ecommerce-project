@@ -1,0 +1,20 @@
+.products-container {
+  min-height: 100vh;
+  padding: 40px 60px;
+  background-color: #f4f6f8;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: 30px auto;
+  justify-items: center;
+}
+
+.products-container > p {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
