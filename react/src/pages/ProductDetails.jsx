@@ -1,10 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { cartContext } from "../Context/CartContext";
 import useFetchProduct from "../hooks/useFetchProducts";
+
 import "./ProductDetails.css";
 
 const ProductDetails = () => {
   const { products, loading, error } = useFetchProduct();
+  const [added, setAdded] = useState(false);
   const navigate = useNavigate();
+  const { cartItems, setCartItems } = useContext(cartContext);
 
   if (loading === true) {
     return <p>Product is loading</p>
@@ -23,6 +28,37 @@ const ProductDetails = () => {
 if (!product){
   return <p>Product not found</p>
 }
+const addToCart = () => {
+  const alreadyIncart = cartItems.some(
+    (item) => item.id === product.id
+  );
+
+  if (alreadyIncart) {
+    setCartItems(
+      cartItems.map((item) => {
+        if (item.id === product.id) {
+          return {
+            ...item,
+            quantity: item.quantity + 1
+          };
+        }
+
+        return item;
+      })
+    );
+  } else {
+    setCartItems([
+      ...cartItems,
+      {
+        ...product,
+        quantity: 1
+      }
+    ]);
+  }
+
+  setAdded(true);
+};
+
  
   return (
   <div className="product-details">
@@ -30,10 +66,22 @@ if (!product){
       <div className="products">
       <h3>Title: {product.name}</h3>
       <p>Price: ${product.priceCents}</p>
-      <button onClick={() => navigate("/products")} 
-       className="back-button">
-        Back to Products
+     
+    <div className="button-container">
+
+      <button onClick={addToCart} className="add-button">
+       {added ? "Added ✓" : "Add to Cart"}
       </button>
+
+      <button
+        onClick={() => navigate("/products")}
+        className="back-button"
+      >
+        Back to Products
+     </button>
+
+    </div>
+    
       </div>
     </div>
   )

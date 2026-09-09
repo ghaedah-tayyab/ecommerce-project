@@ -68,19 +68,40 @@ body {
     border-top: 1px solid #ddd;
     padding-top: 20px;
   }
-  .back-button {
+  .button-container {
+    display: flex;
+    gap: 15px;
     margin-top: 25px;
-    padding: 10px 18px;
-    background-color: #f59e0b;
-    color: white;
+  }
+  
+  .add-button,
+  .back-button {
+    padding: 12px 22px;
     border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+
+  .add-button {
+    background-color:#f7880a;
+    color: white;
+  }
+  
+  .add-button:hover {
+    background-color: #d97706;
+  }
+
+  .back-button {
+    background-color:#f7880a;
+    color: white;
   }
   
   .back-button:hover {
     background-color: #d97706;
   }
- 
+  
+  
