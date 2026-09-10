@@ -1,57 +1,57 @@
 import CartItem from "../components/CartItem";
-import { useContext } from "react";
+import { use, useContext, useMemo } from "react";
 import "./Cart.css";
-import { cartContext } from "../Context/CartContext";
+import { cartContext, cartActionsContext } from "../Context/CartContext";
+import { useCallback } from "react";
 
 const Cart = () => {
 
-  const { cartItems, setCartItems } = useContext(cartContext);
+  const  cartItems  = useContext(cartContext);
+  const setCartItems = useContext(cartActionsContext);
 
-const removeItem = (id) =>{
-   setCartItems(cartItems.filter((item)=>{
-    return item.id !== id 
-   }));
-}
+const removeItem = useCallback((id) =>{
+  setCartItems((prevItems) => {
+    return prevItems.filter((item) => item.id !== id);
+  });
+},[]) 
 
-const increaseQuantity = (id) =>{
-  setCartItems(
-    cartItems.map((item)=>{
-      if(item.id === id){
+const increaseQuantity = useCallback((id) => {
+  setCartItems((prevItems) => {
+    return prevItems.map((item) => {
+      if (item.id === id) {
         return {
           ...item,
           quantity: item.quantity + 1
         };
+      } else {
+        return item;
       }
-      else {
-       return item;
-      }
-    }) 
-  )
-}
+    });
+  });
+}, []);
 
-const decreaseQuantity = (id) =>{
-  setCartItems(
-    cartItems
-      .filter((item) => {
-        return !(item.id === id && item.quantity === 1);
-      })
-    .map((item)=>{
-      if(item.id === id){
-        return {
-          ...item,
-          quantity: item.quantity - 1
-        };
-      }
-      else {
-       return item;
-      }
-    }) 
-  )
-};
+const decreaseQuantity = useCallback((id) =>{
+  setCartItems((prevItems)=>{
+   return prevItems.filter((item) => {
+     return !(item.id === id && item.quantity === 1);
+    })
+  .map((item)=>{
+    if(item.id === id){
+      return {
+        ...item,
+        quantity: item.quantity - 1
+      };
+    }
+    else {
+     return item;
+    }
+  }) })},[])
 
-const totalPrice = cartItems.reduce((total, item) => {
-  return total + (item.priceCents * item.quantity)
-}, 0);
+const totalPrice = useMemo(()=>{
+  return cartItems.reduce((total, item) => {
+    return total + (item.priceCents * item.quantity)
+  }, 0);
+},[cartItems])
 
 
  const card = cartItems.map((item)=>{

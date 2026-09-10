@@ -1,4 +1,5 @@
 import "./CartItem.css"
+import { memo } from "react";
 
 const CartItem = ({product, quantity , removeItem, increaseQuantity, decreaseQuantity }) => {
   const remove = () => {
@@ -28,4 +29,4 @@ const CartItem = ({product, quantity , removeItem, increaseQuantity, decreaseQua
   )
 }
 
-export default CartItem;
+export default memo(CartItem);

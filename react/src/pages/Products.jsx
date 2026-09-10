@@ -2,12 +2,20 @@ import  { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import useFetchProduct from '../hooks/useFetchProducts';
 import "./Products.css";
-import ProductCard from "../components/ProductCard";;
+import ProductCard from "../components/ProductCard";
+import { useMemo } from 'react';
+
 
 
 const Products = () => {
   const {products, loading, error}  = useFetchProduct();
   const [search, setSearch] = useState("");
+
+  const filteredproducts = useMemo(()=>{
+    return products.filter((product) => {
+     return product.name.toLowerCase().includes(search.toLowerCase());
+   });
+ },[products, search])
 
   if (loading === true) {
     return <p>Product is loading</p>
@@ -16,11 +24,6 @@ const Products = () => {
   if (error!= ""){
     return <p>{error}</p>
   }
-
-
-  const filteredproducts = products.filter((product) => {
-    return product.name.toLowerCase().includes(search.toLowerCase());
-  });
   return (
     <div className="products-container">
      <SearchBar setSearch={setSearch} />

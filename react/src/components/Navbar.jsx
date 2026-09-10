@@ -5,7 +5,7 @@ import { cartContext } from "../Context/CartContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { cartItems } = useContext(cartContext);
+  const  cartItems = useContext(cartContext);
   return (
     <div className="navbar">
       <img src={logo} alt="logo"  className="logo"/>

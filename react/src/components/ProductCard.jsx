@@ -1,41 +1,31 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { cartContext } from "../Context/CartContext";
+import { cartActionsContext } from "../Context/CartContext";
 import "./ProductCard.css";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const ProductCard = ({ product }) => {
-  const { cartItems, setCartItems } = useContext(cartContext);
+  const setCartItems  = useContext(cartActionsContext);
   const [added, setAdded] = useState(false);
 
   const addToCart = (e) => {
     e.preventDefault();
-
-    const alreadyIncart = cartItems.some(
-      (item) =>  item.id === product.id
-    );
-    if(alreadyIncart){
-      setCartItems(
-        cartItems.map((item)=>{
-          if(item.id === product.id){
-            return {
-              ...item,
-              quantity: item.quantity + 1
-            }
-           
-          };
-          return item;
-        })
+    setCartItems((prevItems) => {
+      const alreadyIncart = prevItems.some(
+        (item) => item.id === product.id
       );
-    } else {
-      setCartItems([
-        ...cartItems,
-        {
-          ...product,
-          quantity: 1
-        }
-      ]);
-    }
+    
+      if (alreadyIncart) {
+        return prevItems.map((item) => {
+          if (item.id === product.id) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
+          return item;
+        });
+      } else {
+        return [...prevItems, { ...product, quantity: 1 }];
+      }
+    });
 
     setAdded(true);
   };
@@ -56,4 +46,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);
